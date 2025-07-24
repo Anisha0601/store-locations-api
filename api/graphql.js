@@ -1,5 +1,5 @@
 const { ApolloServer } = require('@apollo/server');
-const { startServerAndCreateLambdaHandler, handlers } = require('@as-integrations/aws-lambda');
+const { startServerAndCreateHandler } = require('@as-integrations/vercel');
 const { gql } = require('graphql-tag');
 const stores = require('../storeData');
 
@@ -35,5 +35,5 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-module.exports = startServerAndCreateLambdaHandler(server, handlers.createAPIGatewayProxyEventV2RequestHandler());
+module.exports = startServerAndCreateHandler(server);
 
