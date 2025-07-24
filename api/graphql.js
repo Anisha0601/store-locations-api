@@ -1,7 +1,7 @@
-const { ApolloServer } = require('@apollo/server');
-const { startServerAndCreateHandler } = require('@as-integrations/vercel');
-const { gql } = require('graphql-tag');
-const stores = require('../storeData');
+import { ApolloServer } from '@apollo/server';
+import { startServerAndCreateHandler } from '@as-integrations/vercel';
+import { gql } from 'graphql-tag';
+import stores from '../storeData.js'; // Note: Add `.js` extension
 
 const typeDefs = gql`
   type Store {
@@ -35,5 +35,6 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-module.exports = startServerAndCreateHandler(server);
+export default startServerAndCreateHandler(server);
+
 
