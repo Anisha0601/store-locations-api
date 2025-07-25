@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     id: "fashion-square",
     name: "Fashion Square",
@@ -10,4 +10,3 @@ module.exports = [
     shopify_url: "https://your-store.myshopify.com/pages/fashion-square"
   }
 ];
-

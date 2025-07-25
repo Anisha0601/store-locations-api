@@ -1,7 +1,7 @@
-const { ApolloServer } = require('@apollo/server');
-const { startServerAndCreateLambdaHandler, handlers } = require('@as-integrations/aws-lambda');
-const { gql } = require('graphql-tag');
-const stores = require('../storeData');
+import { ApolloServer } from '@apollo/server';
+import { startServerAndCreateLambdaHandler, handlers } from '@as-integrations/aws-lambda';
+import { gql } from 'graphql-tag';
+import stores from '../storeData.js';
 
 const typeDefs = gql`
   type Store {
@@ -14,7 +14,6 @@ const typeDefs = gql`
     image: String!
     shopify_url: String
   }
-
   type Query {
     stores(status: String): [Store]
     store(id: ID!): Store
@@ -35,7 +34,10 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-module.exports = startServerAndCreateLambdaHandler(server, handlers.createAPIGatewayProxyEventV2RequestHandler());
+export default startServerAndCreateLambdaHandler(
+  server, 
+  handlers.createAPIGatewayProxyEventV2RequestHandler()
+);
 
 
 
