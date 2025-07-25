@@ -112,15 +112,15 @@ const stores = [
     shopify_url: "https://your-store.myshopify.com/pages/galleria-houston"
   },
   {
-    id: "aventura-mall",
-    name: "Aventura Mall",
-    Location: "AVENTURA, FL",
-    address: "19501 Biscayne Blvd, STE #1044",
-    status: "active",
-    opening_date: "2023-07-28",
-    image: "https://cdn.shopify.com/s/files/1/aventura.jpg",
-    shopify_url: "https://your-store.myshopify.com/pages/aventura-mall"
-  },
+  id: "aventura-mall",
+  name: "Aventura Mall",
+  location: "AVENTURA, FL",
+  address: "19501 Biscayne Blvd, STE #1044",
+  status: "active",
+  opening_date: "2023-07-28",
+  image: "https://cdn.shopify.com/s/files/1/aventura.jpg",
+  shopify_url: "https://your-store.myshopify.com/pages/aventura-mall"
+},
   {
     id: "cherry-creek-mall",
     name: "Cherry Creek Shopping Center",
