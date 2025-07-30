@@ -1,0 +1,8 @@
+{
+  "name": "store-api",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "graphql": "^16.6.0"
+  }
+}
