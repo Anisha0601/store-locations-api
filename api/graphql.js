@@ -114,7 +114,7 @@ const stores = [
   {
     id: "aventura-mall",
     name: "Aventura Mall",
-    Location: "AVENTURA, FL",
+    location: "AVENTURA, FL",
     address: "19501 Biscayne Blvd, STE #1044",
     status: "active",
     opening_date: "2023-07-28",
