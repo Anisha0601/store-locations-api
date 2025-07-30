@@ -1,6 +1,6 @@
+// index.js (everything inline)
 import { createServer } from "http";
-import { graphql } from "graphql";
-import { buildSchema } from "graphql";
+import { graphql, buildSchema } from "graphql";
 
 let stores = [];
 
@@ -57,15 +57,26 @@ createServer(async (req, res) => {
     let body = "";
     req.on("data", (chunk) => (body += chunk));
     req.on("end", async () => {
-      const { query, variables } = JSON.parse(body);
-      const result = await graphql({ schema, source: query, rootValue: root, variableValues: variables });
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify(result));
+      try {
+        const { query, variables } = JSON.parse(body);
+        const result = await graphql({
+          schema,
+          source: query,
+          rootValue: root,
+          variableValues: variables,
+        });
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(result));
+      } catch (err) {
+        res.writeHead(500);
+        res.end(JSON.stringify({ error: err.message }));
+      }
     });
   } else {
     res.writeHead(404);
     res.end();
   }
-}).listen(4000);
+}).listen(4000, () => {
+  console.log("GraphQL API running at http://localhost:4000/graphql");
+});
 
-console.log("GraphQL API running at http://localhost:4000/graphql");
