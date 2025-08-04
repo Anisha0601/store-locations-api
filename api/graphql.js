@@ -1,6 +1,5 @@
 import { buildSchema, graphql } from 'graphql';
 
-// Initial data
 const stores = [
   {
     id: "fashion-square",
@@ -404,7 +403,6 @@ const stores = [
   }
 ];
 
-// Define schema
 const schema = buildSchema(`
   type Store {
     id: ID!
@@ -416,45 +414,24 @@ const schema = buildSchema(`
     image: String!
     shopify_url: String
   }
-
-  input CreateStoreInput {
-    id: ID!
-    name: String!
-    location: String!
-    address: String!
-    status: String!
-    opening_date: String!
-    image: String!
-    shopify_url: String
-  }
-
   type Query {
     stores(status: String): [Store]
     store(id: ID!): Store
   }
-
-  type Mutation {
-    createStore(input: CreateStoreInput!): Store
-  }
 `);
 
-// Define resolvers
 const rootValue = {
-  stores: ({ status }) => status ? stores.filter(s => s.status === status) : stores,
-  store: ({ id }) => stores.find(s => s.id === id),
-  createStore: ({ input }) => {
-    const exists = stores.find(s => s.id === input.id);
-    if (exists) {
-      throw new Error(`Store with ID "${input.id}" already exists.`);
+  stores: ({ status }) => {
+    if (status) {
+      return stores.filter(store => store.status === status);
     }
-    stores.push(input);
-    return input;
-  }
+    return stores;
+  },
+  store: ({ id }) => stores.find(store => store.id === id),
 };
 
-// Define handler
 export default async function handler(req, res) {
-  // CORS headers
+  // Handle CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -471,7 +448,7 @@ export default async function handler(req, res) {
 
   try {
     const { query, variables } = req.body;
-
+    
     if (!query) {
       res.status(400).json({ error: 'Query is required' });
       return;
@@ -487,9 +464,9 @@ export default async function handler(req, res) {
     res.status(200).json(result);
   } catch (error) {
     console.error('GraphQL Error:', error);
-    res.status(500).json({
+    res.status(500).json({ 
       error: 'Internal server error',
-      message: error.message,
+      message: error.message 
     });
   }
 }
